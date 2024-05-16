@@ -157,6 +157,31 @@ vim.opt.cursorline = true
 -- Minimal number of screen lines to keep above and below the cursor.
 vim.opt.scrolloff = 10
 
+-- [[ Neovide Configurations ]]
+if vim.g.neovide then
+  vim.opt.linespace = 1
+  vim.g.neovide_scale_factor = 0.85
+
+  vim.g.neovide_floating_shadow = true
+  vim.g.neovide_floating_z_height = 10
+  vim.g.neovide_light_angle_degrees = 45
+  vim.g.neovide_light_radius = 5
+
+  vim.g.neovide_cursor_vfx_mode = 'pixiedust'
+
+  local scale_factor = 0.05
+  local function increaseUiScale()
+    vim.g.neovide_scale_factor = vim.g.neovide_scale_factor + scale_factor
+  end
+  local function decreaseUiScale()
+    vim.g.neovide_scale_factor = vim.g.neovide_scale_factor - scale_factor
+  end
+
+  -- Change GUI Scale Keymaps
+  vim.keymap.set('n', '<C-=>', increaseUiScale, { desc = 'Increase [U]i scale' })
+  vim.keymap.set('n', '<C-->', decreaseUiScale, { desc = 'Decrease [U]i scale' })
+end
+
 -- [[ Basic Keymaps ]]
 --  See `:help vim.keymap.set()`
 
@@ -842,7 +867,7 @@ require('lazy').setup({
     'nvim-treesitter/nvim-treesitter',
     build = ':TSUpdate',
     opts = {
-      ensure_installed = { 'bash', 'c', 'diff', 'html', 'lua', 'luadoc', 'markdown', 'vim', 'vimdoc', 'odin' },
+      ensure_installed = { 'bash', 'c', 'diff', 'html', 'lua', 'luadoc', 'markdown', 'vim', 'vimdoc', 'odin', 'glsl' },
       -- Autoinstall languages that are not installed
       auto_install = true,
       highlight = {
