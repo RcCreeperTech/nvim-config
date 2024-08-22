@@ -255,6 +255,13 @@ vim.opt.rtp:prepend(lazypath)
 require('lazy').setup({
   -- NOTE: Plugins can be added with a link (or for a github repo: 'owner/repo' link).
   'tpope/vim-sleuth', -- Detect tabstop and shiftwidth automatically
+  {
+    'mbbill/undotree',
+    event = 'VimEnter', -- Sets the loading event to 'VimEnter'
+    config = function()
+      vim.keymap.set('n', '<leader>u', vim.cmd.UndotreeToggle)
+    end,
+  },
 
   -- NOTE: Plugins can also be added by using a table,
   -- with the first argument being the link and the following
@@ -606,7 +613,41 @@ require('lazy').setup({
         -- tsserver = {},
         --
         ols = {},
-        zls = {},
+        zls = {
+          cmd = { 'C:\\tools\\zls\\zig-out\\bin\\zls.exe' },
+          settings = {
+            --completion_label_details                           default: true
+            --enable_argument_placeholders                       default: true
+            --enable_autofix                                     default: false
+            --Whether to automatically fix errors on save. Currently supports adding and removing discards.
+            --type boolean
+            enable_autofix = true,
+            --enable_build_on_save                               default: false
+            enable_build_on_save = true,
+            --Whether to enable build-on-save diagnostics
+            --type boolean
+            --enable_inlay_hints                                 default: true
+            --enable_snippets                                    default: true
+            --global_cache_path
+            --highlight_global_var_declarations                  default: false
+            highlight_global_var_declarations = true,
+            --inlay_hints_exclude_single_argument                default: true
+            --inlay_hints_hide_redundant_param_names             default: false
+            inlay_hints_hide_redundant_param_names = true,
+            --inlay_hints_hide_redundant_param_names_last_token  default: false
+            inlay_hints_hide_redundant_param_names_last_token = true,
+            --inlay_hints_show_builtin                           default: true
+            --inlay_hints_show_parameter_name                    default: true
+            --inlay_hints_show_struct_literal_field_type         default: true
+            --inlay_hints_show_variable_type_hints               default: true
+            --prefer_ast_check_as_child_process                  default: true
+            --semantic_tokens                                    default: "full"
+            --skip_std_references                                default: false
+            --warn_style                                         default: false
+            --zig_exe_path
+            --zig_lib_path
+          },
+        },
 
         lua_ls = {
           -- cmd = {...},
@@ -683,6 +724,9 @@ require('lazy').setup({
       formatters_by_ft = {
         lua = { 'stylua' },
         odin = { 'ols' },
+        zig = { 'zls' },
+        go = { 'gopls' }, 
+        rust = { 'rust_analyzer' }, 
         -- Conform can also run multiple formatters sequentially
         -- python = { "isort", "black" },
         --
@@ -867,7 +911,7 @@ require('lazy').setup({
     'nvim-treesitter/nvim-treesitter',
     build = ':TSUpdate',
     opts = {
-      ensure_installed = { 'bash', 'c', 'diff', 'html', 'lua', 'luadoc', 'markdown', 'vim', 'vimdoc', 'odin', 'glsl' },
+      ensure_installed = { 'bash', 'c', 'diff', 'html', 'lua', 'luadoc', 'markdown', 'markdown_inline', 'vim', 'vimdoc', 'odin', 'glsl', 'zig' },
       -- Autoinstall languages that are not installed
       auto_install = true,
       highlight = {
@@ -875,9 +919,9 @@ require('lazy').setup({
         -- Some languages depend on vim's regex highlighting system (such as Ruby) for indent rules.
         --  If you are experiencing weird indenting issues, add the language to
         --  the list of additional_vim_regex_highlighting and disabled languages for indent.
-        additional_vim_regex_highlighting = { 'ruby' },
+        additional_vim_regex_highlighting = { 'ruby', 'markdown' },
       },
-      indent = { enable = true, disable = { 'ruby' } },
+      indent = { enable = true, disable = { 'ruby', 'markdown' } },
     },
     config = function(_, opts)
       -- [[ Configure Treesitter ]] See `:help nvim-treesitter`
