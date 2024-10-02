@@ -320,7 +320,6 @@ require('lazy').setup({
         { '<leader>c_', hidden = true },
         { '<leader>d', group = '[D]ocument' },
         { '<leader>d_', hidden = true },
-        { '<leader>h', desc = 'Git [H]unk', mode = 'v' },
         { '<leader>h', group = 'Git [H]unk' },
         { '<leader>h_', hidden = true },
         { '<leader>r', group = '[R]ename' },
@@ -917,7 +916,7 @@ require('lazy').setup({
     opts = {
       ensure_installed = { 'bash', 'c', 'diff', 'html', 'lua', 'luadoc', 'markdown', 'markdown_inline', 'vim', 'vimdoc', 'odin', 'glsl', 'zig' },
       -- Autoinstall languages that are not installed
-      auto_install = true,
+      auto_install = false,
       highlight = {
         enable = true,
         -- Some languages depend on vim's regex highlighting system (such as Ruby) for indent rules.
