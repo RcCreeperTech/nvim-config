@@ -1,4 +1,4 @@
---[[
+--[[init
 
 =====================================================================
 ==================== READ THIS BEFORE CONTINUING ====================
@@ -616,7 +616,10 @@ require('lazy').setup({
         -- But for many setups, the LSP (`tsserver`) will work just fine
         -- tsserver = {},
         --
-        ols = {},
+        ols = {
+          cmd = { 'C:\\tools\\ols\\ols.exe' },
+          -- settings = {},
+        },
         zls = {
           cmd = { 'C:\\tools\\zls\\zig-out\\bin\\zls.exe' },
           settings = {
